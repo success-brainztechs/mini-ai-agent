@@ -55,5 +55,19 @@ async def main():
     f"TavilyCrawl: Successfully crawled {len(all_docs)} URLs from documentation site"
   )
   
+  # Split documents into chunks
+  log_header("DOCUMENT CHUNKING PHASE")
+  log_info(
+    f"✂️ Text Splitter: Processing {len(all_docs)} documents with 4000 chunk size and 200 overlap",
+    Colors.YELLOW,
+  )
+  
+  text_splitter = RecursiveCharacterTextSplitter(chunk_size=4000, chunk_overlap=200)
+  splitted_docs = text_splitter.split_documents(all_docs)
+  
+  log_success(
+    f"Text Splitter: Created {len(splitted_docs)} chunks from {len(all_docs)} documents"
+  )
+  
 if __name__ == "__main__":
   asyncio.run(main())
